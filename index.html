@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برسام: شعله‌ای که هرگز خاموش نمی‌شود</title>
+    <meta name="description" content="Barsam: A Flame That Never Fades - Memorial website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1E3A8A 0%, #60A5FA 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .loading-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .language-options {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .lang-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .lang-button:hover {
+            background: white;
+            color: #1E3A8A;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <h1>در حال بارگذاری...</h1>
+        <p>Loading... / Laden...</p>
+
+        <div class="language-options">
+            <a href="./fa/index.html" class="lang-button">فارسی</a>
+            <a href="./en/index.html" class="lang-button">English</a>
+            <a href="./nl/index.html" class="lang-button">Nederlands</a>
+        </div>
+    </div>
+
+    <script>
+        // Detect browser language and redirect
+        function detectAndRedirect() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.toLowerCase().split('-')[0];
+
+            // Check if user has a saved language preference
+            const savedLang = localStorage.getItem('preferredLanguage');
+
+            if (savedLang) {
+                window.location.href = `./${savedLang}/index.html`;
+                return;
+            }
+
+            // Redirect based on browser language
+            if (langCode === 'fa' || langCode === 'pr') {
+                window.location.href = './fa/index.html';
+            } else if (langCode === 'nl') {
+                window.location.href = './nl/index.html';
+            } else if (langCode === 'en') {
+                window.location.href = './en/index.html';
+            } else {
+                // Default to Farsi (primary language)
+                window.location.href = './fa/index.html';
+            }
+        }
+
+        // Delay redirect slightly to show loading screen
+        setTimeout(detectAndRedirect, 800);
+    </script>
+</body>
+</html>

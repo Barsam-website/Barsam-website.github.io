@@ -1,0 +1,80 @@
+/* ===================================
+   RTL (Right-to-Left) Styles for Farsi
+   =================================== */
+
+/* === RTL BASE OVERRIDES === */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] body {
+    direction: rtl;
+}
+
+/* === LANGUAGE SWITCHER RTL === */
+[dir="rtl"] .language-switcher {
+    right: auto;
+    left: var(--spacing-lg);
+}
+
+/* === NAVIGATION RTL === */
+[dir="rtl"] .nav-list {
+    direction: rtl;
+}
+
+/* === BOOK HIGHLIGHT RTL === */
+[dir="rtl"] .book-highlight {
+    border-left: none;
+    border-right: 4px solid var(--color-gold);
+}
+
+/* === BUTTONS RTL === */
+[dir="rtl"] .purchase-options {
+    direction: rtl;
+}
+
+/* === CONTACT EMAIL RTL === */
+[dir="rtl"] .email-link {
+    flex-direction: row-reverse;
+}
+
+/* === TEXT ALIGNMENT === */
+[dir="rtl"] .book-description,
+[dir="rtl"] .author-bio p {
+    text-align: justify;
+}
+
+/* === MOBILE MENU RTL (for responsive) === */
+@media (max-width: 768px) {
+    [dir="rtl"] .nav-list {
+        text-align: right;
+    }
+}
+
+/* === FARSI TYPOGRAPHY IMPROVEMENTS === */
+[lang="fa"] {
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+}
+
+[lang="fa"] .hero-title,
+[lang="fa"] .section-header h2 {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+[lang="fa"] .book-description,
+[lang="fa"] .author-bio p {
+    line-height: 1.8;
+    word-spacing: 0.1em;
+}
+
+/* === FARSI NUMBER DISPLAY === */
+[lang="fa"] .copyright {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+/* === FARSI BUTTON TEXT === */
+[lang="fa"] .btn {
+    letter-spacing: 0;
+}
