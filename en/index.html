@@ -119,9 +119,73 @@
                 <h2>Reader Reviews</h2>
                 <div class="header-line"></div>
             </div>
-            <div class="reviews-content">
-                <div class="coming-soon">
-                    <p>Reader reviews and feedback will be published here soon.</p>
+
+            <!-- Submit Review Form -->
+            <div class="review-form-container">
+                <h3 class="form-title">Share Your Thoughts About the Book</h3>
+                <p class="form-description">Your review will be published here after approval.</p>
+
+                <form id="reviewForm" class="review-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email (Optional)</label>
+                            <input type="email" id="email" name="email" placeholder="email@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Your Rating *</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5-en" name="rating" value="5" required>
+                            <label for="star5-en">★</label>
+                            <input type="radio" id="star4-en" name="rating" value="4">
+                            <label for="star4-en">★</label>
+                            <input type="radio" id="star3-en" name="rating" value="3">
+                            <label for="star3-en">★</label>
+                            <input type="radio" id="star2-en" name="rating" value="2">
+                            <label for="star2-en">★</label>
+                            <input type="radio" id="star1-en" name="rating" value="1">
+                            <label for="star1-en">★</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review">Your Review *</label>
+                        <textarea id="review" name="review" rows="5" required placeholder="Please write your review about the book..."></textarea>
+                    </div>
+
+                    <input type="hidden" name="_subject" value="New Review for Barsam Book">
+                    <input type="hidden" name="_language" value="en">
+
+                    <button type="submit" class="btn btn-primary submit-btn">Submit Review</button>
+
+                    <div class="form-status" id="formStatus"></div>
+                </form>
+            </div>
+
+            <!-- Display Reviews -->
+            <div class="reviews-display">
+                <h3 class="reviews-display-title">Published Reviews</h3>
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Reviews will be added here manually after approval -->
+                    <div class="no-reviews">
+                        <p>No reviews yet. Be the first to share your thoughts!</p>
+                    </div>
+
+                    <!-- Example of how a review will look (remove this comment when adding real reviews):
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-author">Reader Name</div>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                        <p class="review-text">Review text goes here...</p>
+                        <div class="review-date">January 5, 2025</div>
+                    </div>
+                    -->
                 </div>
             </div>
         </div>

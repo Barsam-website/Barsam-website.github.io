@@ -286,6 +286,82 @@
     }
 
     // ==========================================
+    // REVIEW FORM HANDLING
+    // ==========================================
+    function initReviewForm() {
+        const form = document.getElementById('reviewForm');
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const statusDiv = document.getElementById('formStatus');
+            const submitBtn = form.querySelector('.submit-btn');
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = submitBtn.textContent.includes('ارسال') ? 'در حال ارسال...' :
+                                    submitBtn.textContent.includes('Submit') ? 'Submitting...' :
+                                    'Verzenden...';
+
+            // Get form data
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Success
+                    statusDiv.className = 'form-status success';
+                    const lang = formData.get('_language') || 'en';
+
+                    if (lang === 'fa') {
+                        statusDiv.textContent = '✓ نظر شما با موفقیت ارسال شد! پس از بررسی منتشر خواهد شد.';
+                    } else if (lang === 'nl') {
+                        statusDiv.textContent = '✓ Uw recensie is succesvol verzonden! Het wordt binnenkort gepubliceerd.';
+                    } else {
+                        statusDiv.textContent = '✓ Your review has been submitted successfully! It will be published soon.';
+                    }
+
+                    form.reset();
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        statusDiv.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Error
+                statusDiv.className = 'form-status error';
+                const lang = formData.get('_language') || 'en';
+
+                if (lang === 'fa') {
+                    statusDiv.textContent = '✗ خطا در ارسال نظر. لطفاً دوباره تلاش کنید یا از طریق ایمیل با ما تماس بگیرید.';
+                } else if (lang === 'nl') {
+                    statusDiv.textContent = '✗ Fout bij het verzenden. Probeer het opnieuw of neem contact met ons op via e-mail.';
+                } else {
+                    statusDiv.textContent = '✗ Error submitting review. Please try again or contact us via email.';
+                }
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                const originalText = submitBtn.textContent.includes('حال') ? 'ارسال نظر' :
+                                   submitBtn.textContent.includes('Submitting') ? 'Submit Review' :
+                                   'Recensie Verzenden';
+                submitBtn.textContent = originalText;
+            }
+        });
+    }
+
+    // ==========================================
     // INITIALIZE ALL FEATURES
     // ==========================================
     function init() {
@@ -297,6 +373,7 @@
         handleExternalLinks();
         initMobileMenu();
         enhanceAccessibility();
+        initReviewForm();
 
         console.log('✨ Barsam Memorial Website Initialized');
     }

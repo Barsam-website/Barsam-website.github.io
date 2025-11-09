@@ -119,9 +119,73 @@
                 <h2>Recensies van Lezers</h2>
                 <div class="header-line"></div>
             </div>
-            <div class="reviews-content">
-                <div class="coming-soon">
-                    <p>Recensies en feedback van lezers worden binnenkort hier gepubliceerd.</p>
+
+            <!-- Submit Review Form -->
+            <div class="review-form-container">
+                <h3 class="form-title">Deel Uw Gedachten Over Het Boek</h3>
+                <p class="form-description">Uw recensie wordt na goedkeuring hier gepubliceerd.</p>
+
+                <form id="reviewForm" class="review-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Uw Naam *</label>
+                            <input type="text" id="name" name="name" required placeholder="Volledige Naam">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail (Optioneel)</label>
+                            <input type="email" id="email" name="email" placeholder="email@voorbeeld.nl">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Uw Beoordeling *</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5-nl" name="rating" value="5" required>
+                            <label for="star5-nl">★</label>
+                            <input type="radio" id="star4-nl" name="rating" value="4">
+                            <label for="star4-nl">★</label>
+                            <input type="radio" id="star3-nl" name="rating" value="3">
+                            <label for="star3-nl">★</label>
+                            <input type="radio" id="star2-nl" name="rating" value="2">
+                            <label for="star2-nl">★</label>
+                            <input type="radio" id="star1-nl" name="rating" value="1">
+                            <label for="star1-nl">★</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review">Uw Recensie *</label>
+                        <textarea id="review" name="review" rows="5" required placeholder="Schrijf uw recensie over het boek..."></textarea>
+                    </div>
+
+                    <input type="hidden" name="_subject" value="Nieuwe Recensie voor Barsam Boek">
+                    <input type="hidden" name="_language" value="nl">
+
+                    <button type="submit" class="btn btn-primary submit-btn">Recensie Verzenden</button>
+
+                    <div class="form-status" id="formStatus"></div>
+                </form>
+            </div>
+
+            <!-- Display Reviews -->
+            <div class="reviews-display">
+                <h3 class="reviews-display-title">Gepubliceerde Recensies</h3>
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Reviews will be added here manually after approval -->
+                    <div class="no-reviews">
+                        <p>Nog geen recensies. Wees de eerste om uw gedachten te delen!</p>
+                    </div>
+
+                    <!-- Example of how a review will look (remove this comment when adding real reviews):
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-author">Lezer Naam</div>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                        <p class="review-text">Recensietekst komt hier...</p>
+                        <div class="review-date">5 januari 2025</div>
+                    </div>
+                    -->
                 </div>
             </div>
         </div>
