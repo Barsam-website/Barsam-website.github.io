@@ -1,10 +1,11 @@
 /* ===================================
    Persian Pattern and Design Elements
+   Enhanced with Traditional Iranian Motifs
    =================================== */
 
 /* === DECORATIVE ELEMENTS === */
 
-/* Shamseh Pattern (for section dividers) */
+/* Shamseh Pattern (Persian Sun/Star) */
 .pattern-shamseh {
     position: relative;
     width: 100px;
@@ -34,6 +35,56 @@
     height: 40px;
     background: var(--color-gold);
     opacity: 0.3;
+}
+
+/* Persian Floral Motifs */
+.persian-flower {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    opacity: 0.4;
+    margin: 0 var(--spacing-sm);
+}
+
+.persian-flower::before {
+    content: '❀';
+}
+
+/* Traditional Persian Border with Geometric Pattern */
+.persian-border {
+    position: relative;
+    padding: var(--spacing-lg);
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-image: repeating-linear-gradient(
+        90deg,
+        var(--color-primary) 0px,
+        var(--color-primary) 10px,
+        var(--color-gold) 10px,
+        var(--color-gold) 15px,
+        var(--color-primary-light) 15px,
+        var(--color-primary-light) 20px
+    ) 3;
+}
+
+/* Cypress Tree Symbol (سرو - Traditional Persian Symbol) */
+.cypress-decoration::before,
+.cypress-decoration::after {
+    content: '🌲';
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.1;
+    color: var(--color-primary);
+}
+
+.cypress-decoration::before {
+    top: 0;
+    left: 2rem;
+}
+
+.cypress-decoration::after {
+    bottom: 0;
+    right: 2rem;
 }
 
 /* Geometric Border Pattern */
