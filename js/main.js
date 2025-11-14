@@ -286,7 +286,7 @@
     }
 
     // ==========================================
-    // REVIEW FORM HANDLING
+    // REVIEW FORM HANDLING (FIREBASE + FORMSPREE)
     // ==========================================
     function initReviewForm() {
         const form = document.getElementById('reviewForm');
@@ -306,20 +306,52 @@
 
             // Get form data
             const formData = new FormData(form);
+            const lang = formData.get('_language') || 'en';
 
             try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
+                // STRATEGY: Submit to Firebase AND Formspree for redundancy
 
-                if (response.ok) {
-                    // Success
+                // 1. Submit to Firebase (primary storage)
+                let firebaseSuccess = false;
+                if (typeof window.ReviewsManager !== 'undefined') {
+                    console.log('📤 Submitting to Firebase...');
+                    const firebaseResult = await window.ReviewsManager.submitReview(formData);
+
+                    if (firebaseResult.success) {
+                        console.log('✅ Firebase submission successful');
+                        firebaseSuccess = true;
+                    } else {
+                        console.warn('⚠️ Firebase submission failed:', firebaseResult.error);
+                    }
+                } else {
+                    console.warn('⚠️ ReviewsManager not loaded, skipping Firebase submission');
+                }
+
+                // 2. Submit to Formspree (email notification backup)
+                let formspreeSuccess = false;
+                try {
+                    console.log('📧 Sending email notification via Formspree...');
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        console.log('✅ Formspree notification sent');
+                        formspreeSuccess = true;
+                    }
+                } catch (formspreeError) {
+                    console.warn('⚠️ Formspree notification failed:', formspreeError);
+                }
+
+                // 3. Determine overall success (Firebase is primary)
+                if (firebaseSuccess) {
+                    // Success - show success message
                     statusDiv.className = 'form-status success';
-                    const lang = formData.get('_language') || 'en';
+                    statusDiv.style.display = 'block';
 
                     if (lang === 'fa') {
                         statusDiv.textContent = '✓ نظر شما با موفقیت ارسال شد! پس از بررسی منتشر خواهد شد.';
@@ -335,13 +367,18 @@
                     setTimeout(() => {
                         statusDiv.style.display = 'none';
                     }, 5000);
+
                 } else {
-                    throw new Error('Form submission failed');
+                    // Firebase failed - show error
+                    throw new Error('Failed to submit review to database');
                 }
+
             } catch (error) {
-                // Error
+                // Error handling
+                console.error('❌ Review submission error:', error);
+
                 statusDiv.className = 'form-status error';
-                const lang = formData.get('_language') || 'en';
+                statusDiv.style.display = 'block';
 
                 if (lang === 'fa') {
                     statusDiv.textContent = '✗ خطا در ارسال نظر. لطفاً دوباره تلاش کنید یا از طریق ایمیل با ما تماس بگیرید.';
