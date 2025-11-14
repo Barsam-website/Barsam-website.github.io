@@ -91,3 +91,7 @@ build/
 # Backup files
 *.bak
 *.backup
+
+# Document files
+*.docx
+*.doc
