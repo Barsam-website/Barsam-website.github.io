@@ -150,22 +150,33 @@
       return;
     }
 
-    // Clear container
-    container.innerHTML = '';
+    // Check if there are static reviews already in the HTML
+    const existingStaticReviews = container.querySelectorAll('.review-card:not([data-review-id])');
+    const hasStaticReviews = existingStaticReviews.length > 0;
 
-    // Show no reviews message if empty
-    if (reviews.length === 0) {
+    // If no Firebase reviews and we have static reviews, keep them
+    if (reviews.length === 0 && hasStaticReviews) {
+      console.log(`✅ Keeping ${existingStaticReviews.length} static reviews`);
+      return;
+    }
+
+    // Only clear dynamic reviews (those with data-review-id)
+    const dynamicReviews = container.querySelectorAll('.review-card[data-review-id]');
+    dynamicReviews.forEach(card => card.remove());
+
+    // If we have no reviews at all, show "no reviews" message
+    if (reviews.length === 0 && !hasStaticReviews) {
       displayNoReviews(container);
       return;
     }
 
-    // Create review cards
+    // Create review cards for Firebase reviews
     reviews.forEach((review) => {
       const card = createReviewCard(review);
       container.appendChild(card);
     });
 
-    console.log(`✅ Displayed ${reviews.length} reviews`);
+    console.log(`✅ Displayed ${reviews.length} Firebase reviews + ${existingStaticReviews.length} static reviews`);
   }
 
   // ============================================
