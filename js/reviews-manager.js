@@ -154,9 +154,13 @@
     const existingStaticReviews = container.querySelectorAll('.review-card:not([data-review-id])');
     const hasStaticReviews = existingStaticReviews.length > 0;
 
-    // If no Firebase reviews and we have static reviews, keep them
-    if (reviews.length === 0 && hasStaticReviews) {
-      console.log(`✅ Keeping ${existingStaticReviews.length} static reviews`);
+    // Check if there's already a static "no reviews" message
+    const existingNoReviewsMsg = container.querySelector('.no-reviews:not([data-dynamic])');
+    const hasStaticNoReviews = existingNoReviewsMsg !== null;
+
+    // If no Firebase reviews and we have static content (reviews or no-reviews message), keep it
+    if (reviews.length === 0 && (hasStaticReviews || hasStaticNoReviews)) {
+      console.log(`✅ Keeping static content (${existingStaticReviews.length} reviews, has no-review msg: ${hasStaticNoReviews})`);
       return;
     }
 
@@ -164,8 +168,12 @@
     const dynamicReviews = container.querySelectorAll('.review-card[data-review-id]');
     dynamicReviews.forEach(card => card.remove());
 
-    // If we have no reviews at all, show "no reviews" message
-    if (reviews.length === 0 && !hasStaticReviews) {
+    // Remove dynamic "no reviews" messages (if any)
+    const dynamicNoReviews = container.querySelectorAll('.no-reviews[data-dynamic]');
+    dynamicNoReviews.forEach(msg => msg.remove());
+
+    // If we have no reviews at all and no static content, show dynamic "no reviews" message
+    if (reviews.length === 0 && !hasStaticReviews && !hasStaticNoReviews) {
       displayNoReviews(container);
       return;
     }
@@ -238,6 +246,7 @@
   function displayNoReviews(container) {
     const noReviews = document.createElement('div');
     noReviews.className = 'no-reviews';
+    noReviews.setAttribute('data-dynamic', 'true'); // Mark as dynamically created
 
     const message = document.createElement('p');
 
