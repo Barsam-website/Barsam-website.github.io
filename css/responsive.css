@@ -131,6 +131,15 @@
         padding: var(--spacing-sm);
     }
 
+    .book-title,
+    .purchase-group-title {
+        font-size: 1.25rem;
+    }
+
+    .book-divider {
+        margin: var(--spacing-xl) auto;
+    }
+
     /* Purchase Options */
     .purchase-options {
         grid-template-columns: 1fr;
@@ -272,6 +281,11 @@
     }
 
     .purchase-option h3 {
+        font-size: 1.125rem;
+    }
+
+    .book-title,
+    .purchase-group-title {
         font-size: 1.125rem;
     }
 

@@ -391,6 +391,51 @@ section::before {
     color: var(--color-gold);
 }
 
+/* Individual book entries within the introduction */
+.book-entry + .book-entry {
+    margin-top: var(--spacing-lg);
+}
+
+.book-entry-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.book-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.book-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: var(--line-height-tight);
+}
+
+/* Persian flourish separating the two books */
+.book-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    max-width: 320px;
+    margin: var(--spacing-2xl) auto;
+    color: var(--color-gold);
+    font-size: 1.25rem;
+    opacity: 0.5;
+}
+
+.book-divider::before,
+.book-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary-light), transparent);
+}
+
 /* === AUTHOR SECTION === */
 .author-section {
     background: var(--color-white);
@@ -476,12 +521,42 @@ section::before {
     background: linear-gradient(135deg, var(--color-white) 0%, var(--color-primary-lighter) 100%);
 }
 
+/* Each book gets its own titled group of options */
+.purchase-group + .purchase-group {
+    margin-top: var(--spacing-2xl);
+}
+
+.purchase-group-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.purchase-group-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.purchase-group-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: var(--line-height-tight);
+}
+
 .purchase-options {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-xl);
     max-width: 900px;
     margin: 0 auto;
+}
+
+/* A lone option should not stretch the full grid width */
+.purchase-options-single {
+    max-width: 420px;
 }
 
 .purchase-option {
