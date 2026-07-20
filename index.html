@@ -95,34 +95,24 @@
     </div>
 
     <script>
-        // Detect browser language and redirect
-        function detectAndRedirect() {
-            const userLang = navigator.language || navigator.userLanguage;
-            const langCode = userLang.toLowerCase().split('-')[0];
+        // Farsi is the default view. Visitors who picked another language
+        // with the switcher keep their choice; everyone else starts in Farsi.
+        function redirectToLanguage() {
+            const languages = ['fa', 'en', 'nl'];
+            let savedLang = null;
 
-            // Check if user has a saved language preference
-            const savedLang = localStorage.getItem('preferredLanguage');
-
-            if (savedLang) {
-                window.location.href = `./${savedLang}/index.html`;
-                return;
+            try {
+                savedLang = localStorage.getItem('preferredLanguage');
+            } catch (e) {
+                savedLang = null;
             }
 
-            // Redirect based on browser language
-            if (langCode === 'fa' || langCode === 'pr') {
-                window.location.href = './fa/index.html';
-            } else if (langCode === 'nl') {
-                window.location.href = './nl/index.html';
-            } else if (langCode === 'en') {
-                window.location.href = './en/index.html';
-            } else {
-                // Default to Farsi (primary language)
-                window.location.href = './fa/index.html';
-            }
+            const lang = languages.includes(savedLang) ? savedLang : 'fa';
+            window.location.href = `./${lang}/index.html`;
         }
 
         // Delay redirect slightly to show loading screen
-        setTimeout(detectAndRedirect, 800);
+        setTimeout(redirectToLanguage, 800);
     </script>
 </body>
 </html>
